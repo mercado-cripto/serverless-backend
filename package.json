@@ -1,0 +1,23 @@
+{
+  "name": "mc-serverless-backend",
+  "version": "1.1.2",
+  "description": "MC",
+  "author": "Cota",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nazius/mercado-cripto"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.536.0",
+    "serverless-bundle": "^1.2.2",
+    "serverless-dotenv-plugin": "^2.1.1"
+  },
+  "dependencies": {
+    "jssha": "^3.1.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "request-promise": "^4.2.5",
+    "uuid": "^3.3.3"
+  }
+}

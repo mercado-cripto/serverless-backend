@@ -1,0 +1,92 @@
+service: mc-serverless-backend
+
+# Create an optimized package for our functions
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle # Package our functions with Webpack
+  - serverless-dotenv-plugin # Load .env as environment variables
+
+custom:
+  # Our stage is based on what is passed in when running serverless
+  # commands. Or fallsback to what we have set in the provider section.
+  stage: ${opt:stage, self:provider.stage}
+  # Set the table name here so we can use it while testing locally
+  tableName: ${self:custom.stage}-mc
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage}
+  region: us-east-1
+  API_KEY: ${opt:API_KEY}
+  ORX_SECRET_KEY: ${opt:ORX_SECRET_KEY}
+  ORX_API_KEY: ${opt:ORX_API_KEY}
+  # These environment variables are made available to our functions
+  # under process.env.
+  environment:
+    tableName: ${self:custom.tableName}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      # Restrict our IAM role permissions to
+      # the specific table for the stage
+      Resource:
+        - "Fn::GetAtt": [McTable, Arn]
+functions:
+  getData:
+    handler: functions/getData.main
+    environment:
+      Stage: ${self:provider.stage}
+    events:
+      - http:
+          path: /getData
+          method: get
+          cors: true
+          private: false
+
+  cronDataCMC:
+    handler: functions/cronDataCMC.main
+    events:
+      - schedule: rate(5 minutes)
+    environment:
+      API_KEY: ${self:provider.API_KEY}
+
+  cronDataBUDA:
+    handler: functions/cronDataBUDA.main
+    events:
+      - schedule: rate(1 minute)
+
+  cronDataCMKT:
+    handler: functions/cronDataCMKT.main
+    events:
+      - schedule: rate(1 minute)
+
+  cronDataORX:
+    handler: functions/cronDataORX.main
+    events:
+      - schedule: rate(1 minute)
+    environment:
+      ORX_API_KEY: ${self:provider.ORX_API_KEY}
+      ORX_SECRET_KEY: ${self:provider.ORX_SECRET_KEY}
+
+  cronDataSTTG:
+    handler: functions/cronDataSTTG.main
+    events:
+      - schedule: rate(1 minute)
+
+# Create our resources with separate CloudFormation templates
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
+  # DynamoDB
+  - ${file(resources/dynamodb-table.yml)}
