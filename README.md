@@ -83,3 +83,19 @@ REACT_APP_apiGateway_URL=https://55555555.execute-api.us-east-1.amazonaws.com/pr
 ```
 
 Se tiene ahora el .env para levantar la web app y conectarla al backend.
+
+# Contribuciones.
+
+Si deseas aportar al proyecto:
+
+- Fork repositorio
+
+- Clonar repositorio
+
+- Cree un branch por cada feature o cambio realizado.
+
+- Realiza tu trabajo y realiza commits con nombres logicos.
+
+- Pushea tu codigo a tu repositorio (fork)
+
+- realiza un nuevo Pull Request a Mercado Cripto.
