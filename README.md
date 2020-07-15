@@ -44,7 +44,7 @@ Install and configure aws-cli
 Para levantar este proyecto, el resultado del siguiente comando, desplegara en la nube de aws todo el proyecto y generara las URL y Configuraciones necesarias para conectar la web app
 
 ```
-serverless deploy --stage prod --API_KEY 555555-555555-555555-555555-555555 --ORX_API_KEY 555555555555555555555555 --ORX_SECRET_KEY 555555555555555555555555
+serverless deploy --stage prod --API_KEY tSbCxwTCRQWx6r4dppTxnb9agEDZHjPdMw --ORX_API_KEY 3o5GsDdP95xq9SkQLpBiFH9mJsKuLcGmsN --ORX_SECRET_KEY tSbCxwTCRQWx6r4dppTxnb9agEDZHjPdMw
 
 Output deberia ser similar a :
 
