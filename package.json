@@ -9,7 +9,7 @@
     "url": "https://github.com/nazius/mercado-cripto"
   },
   "devDependencies": {
-    "aws-sdk": "^2.536.0",
+    "aws-sdk": "^2.814.0",
     "serverless-bundle": "^1.2.2"
   },
   "dependencies": {
